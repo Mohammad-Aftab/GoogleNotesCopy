@@ -1,5 +1,7 @@
 package com.lordsam.googlenotescopy.ui.screen
 
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,11 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.lordsam.googlenotescopy.R
+import com.lordsam.googlenotescopy.navigation.Routes
 import com.lordsam.googlenotescopy.ui.theme.GoogleNotesCopyTheme
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(navController: NavHostController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -68,12 +73,18 @@ fun SplashScreen() {
             }
         }
     }
+
+    Handler(Looper.getMainLooper()).postDelayed({
+        navController.navigate(Routes.HOME_SCREEN.name)
+        }, 1000)
 }
 
 @Preview
 @Composable
 fun PreviewSplashScreen() {
     GoogleNotesCopyTheme {
-        SplashScreen()
+        SplashScreen(
+            navController = rememberNavController()
+        )
     }
 }
